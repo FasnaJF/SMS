@@ -20,10 +20,24 @@ class User extends CI_Model
     public function addTempNewUser($data)
     {
 
-        $sql = $this->db->insert_string('tempuser', $data);
-        $this->db->query($sql);
+        $email = $data['Email'];
 
-        $userId =  $this->db->insert_id();
+        $query = $this->db->get_where('tempuser',array('Email'=>$email));
+
+        $exist = $query->num_rows();
+
+        if($exist){
+            $this->phpAlert("The Email already exists");
+            $userId=0;
+        }
+        else {
+
+            $sql = $this->db->insert_string('tempuser', $data);
+            $this->db->query($sql);
+
+            $userId = $this->db->insert_id();
+        }
+        return $userId;
 
     }
 
@@ -43,43 +57,54 @@ class User extends CI_Model
 
     public function addNewUser($data)
     {
+        $email = $data['Email'];
 
+        $query = $this->db->get_where('user',array('Email'=>$email));
 
-        $sql = $this->db->insert_string('user', $data);
-        $this->db->query($sql);
+        $exist = $query->num_rows();
 
-        $userId =  $this->db->insert_id();
-
-        $flag = $data['Flag'];
-
-
-        if($flag==1){
-
-            array_pop($data);
-            $data['UserID'] = $userId;
-            $sql = $this->db->insert_string('reader', $data);
-            $this->db->query($sql);
+        if($exist){
+            $this->phpAlert("The Email already exists");
         }
         else{
 
-            array_pop($data);
-            $data['UserID'] = $userId;
-            $sql = $this->db->insert_string('industries', $data);
+
+
+            $sql = $this->db->insert_string('user', $data);
             $this->db->query($sql);
+
+            $userId =  $this->db->insert_id();
+
+            $flag = $data['Flag'];
+
+
+            if($flag==1){
+
+                array_pop($data);
+                $data['UserID'] = $userId;
+                $sql = $this->db->insert_string('reader', $data);
+                $this->db->query($sql);
+            }
+            else{
+
+                array_pop($data);
+                $data['UserID'] = $userId;
+                $sql = $this->db->insert_string('industries', $data);
+                $this->db->query($sql);
+            }
+
+                $data = array();
+                $data['MenuName'] = "Personal_Info";
+                $data['UserID'] = $userId;
+                $sql = $this->db->insert_string('menu', $data);
+                $this->db->query($sql);
+
+                $data = array();
+                $data['MenuName'] = "Account";
+                $data['UserID'] = $userId;
+                $sql = $this->db->insert_string('menu', $data);
+                $this->db->query($sql);
         }
-
-
-        $data = array();
-        $data['MenuName'] = "Personal_Info";
-        $data['UserID'] = $userId;
-        $sql = $this->db->insert_string('menu', $data);
-         $this->db->query($sql);
-
-        $data = array();
-        $data['MenuName'] = "Account";
-        $data['UserID'] = $userId;
-        $sql = $this->db->insert_string('menu', $data);
-        $this->db->query($sql);
 
     }
 
@@ -116,6 +141,11 @@ class User extends CI_Model
 
         return $query->result_array();
 
+    }
+
+
+    public function phpAlert($msg) {
+        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
     }
 
 }

@@ -127,7 +127,7 @@ class Admin extends CI_Controller {
                 $this->introForm();
 
             }else{
-                $this->phpAlert("Username or Password is wrong..\n Verify your Email if you haven't did that :)");
+                $this->phpAlert("Username or Password is wrong.. Verify your Email if you haven't did that :)");
                 $this->login();
             }
 
@@ -159,8 +159,8 @@ class Admin extends CI_Controller {
 
         // if CAPTCHA is incorrectly entered!
         if (!$resp->is_valid) {
-            die (" The recapthca wasn't entered correctly.Go back and try it again." .
-                "(reCAPTCHA said: ". $resp->error . ")");
+            $this->phpAlert("Re-captcha typed incorrectly...");
+            $this->login();
         } else {
             // CAPTCHA entries are correct
 
@@ -186,11 +186,16 @@ class Admin extends CI_Controller {
 
                     $id = $this->user->addTempNewUser($data);
 
+                    if($id){
 
-                    $this->sendVerificationEmail($email,$verifyCode);
+                        $this->sendVerificationEmail($email,$verifyCode);
+                        $this->index();
+                    }
+                    else{
+                        $this->index();
+                    }
 
 
-                    $this->index();
                 }
 
             } else {
