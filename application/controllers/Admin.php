@@ -124,7 +124,10 @@ class Admin extends CI_Controller {
 
                 $this->session->set_userdata('user_id',$user_id['UserID'] );
                 $this->session->set_userdata('userName', $user);
-                $this->introForm();
+
+                $this->twoStep();
+
+
 
             }else{
                 $this->phpAlert("Username or Password is wrong.. Verify your Email if you haven't did that :)");
@@ -140,6 +143,39 @@ class Admin extends CI_Controller {
 
     }
 
+
+    public function mobileVerify(){
+        echo "Verifying in process";
+    }
+
+
+    public function mobileVerifyRequest(){
+
+        $flag = isset($_POST['twostep']) ? $_POST['twostep'] : '';
+        //echo $flag;
+
+        if(!$flag){
+            $this->introForm();
+        }
+        else{
+            $this->verifyMobile();
+        }
+
+
+    }
+
+    public function verifyMobile(){
+        $this->load->view('dash/dash_header');
+        $this->load->view('dash/verifymobile.php');
+        $this->load->view('dash/dash_footer');
+    }
+
+
+    public function twoStep(){
+        $this->load->view('dash/dash_header');
+        $this->load->view('dash/twostep.php');
+        $this->load->view('dash/dash_footer');
+    }
 
     public function register(){
         $this->load->view('dash/dash_header');

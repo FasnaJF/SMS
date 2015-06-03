@@ -6,10 +6,10 @@
  * Date: 2/6/2015
  * Time: 6:03 AM
  */
-class User_M extends MY_Model
+class Authuser extends MY_Model
 {
 
-    protected $_table = 'users';
+    protected $_table = 'authuser';
 
     public function add($user)
     {

@@ -1,11 +1,11 @@
 <body>
-    <!-- topbar starts -->
-   <?php include_once('dash_topbar.php');
-   ?>
-    <!-- topbar ends -->
+<!-- topbar starts -->
+<?php include_once('dash_topbar.php');
+?>
+<!-- topbar ends -->
 <div class="ch-container">
     <div class="row">
-        
+
         <!-- left menu starts -->
         <div class="col-sm-2 col-lg-2">
             <div class="sidebar-nav">
@@ -39,69 +39,69 @@
             <!-- content starts -->
             <div>
 
-</div>
+            </div>
 
-<div class="row">
-    <div class="box col-md-12">
-        <div class="box-inner">
-            <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-edit"></i> New User Information</h2>
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-edit"></i> New User Information</h2>
 
-                <div class="box-icon">
-                    <a href="#" class="btn btn-setting btn-round btn-default"><i
-                            class="glyphicon glyphicon-cog"></i></a>
-                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
-                            class="glyphicon glyphicon-chevron-up"></i></a>
-                    <a href="#" class="btn btn-close btn-round btn-default"><i
-                            class="glyphicon glyphicon-remove"></i></a>
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <form role="form" method="post" action="<?php echo(base_url('Admin/addUser')); ?> ">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="examplePass">Password</label>
+                                    <input name="password" type="password" class="form-control" id="examplePass" placeholder="Enter Password"  >
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleRePass">Re-type Password</label>
+                                    <input name="conf_password" type="password" class="form-control" id="exampleRePass" placeholder="Re type Password" onkeyup="checkPass(); return false;">
+                                    <span id="confirmMessage" class="confirmMessage"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleCategory">Please choose your account type:</label><br>
+                                    <input type="radio" name="category" value="1">Reader
+                                    <input type="radio" name="category" value="0">Industry
+                                </div>
+
+                                <div class="form-group">
+                                    <?php
+                                    $this->load->view('dash/recaptchalib.php');
+                                    $publickey = "6Ld0jAYTAAAAAA54T7fVuCNNxxZs9OhzdRNm9DGm";
+                                    echo recaptcha_get_html($publickey,NULL,true);
+                                    ?>
+                                </div>
+
+                                <button type="submit" name="user" class="btn btn-default">Register</button>
+
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="box-content">
-                <form role="form" method="post" action="<?php echo(base_url('Admin/addUser')); ?> ">
+                <!--/span-->
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="examplePass">Password</label>
-                        <input name="password" type="password" class="form-control" id="examplePass" placeholder="Enter Password"  >
+            </div><!--/row-->
 
-                    </div>
-                     <div class="form-group">
-                        <label for="exampleRePass">Re-type Password</label>
-                        <input name="conf_password" type="password" class="form-control" id="exampleRePass" placeholder="Re type Password" onkeyup="checkPass(); return false;">
-                         <span id="confirmMessage" class="confirmMessage"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleCategory">Please choose your account type:</label><br>
-                        <input type="radio" name="category" value="1">Reader
-                        <input type="radio" name="category" value="0">Industry
-                    </div>
-
-                    <div class="form-group">
-                        <?php
-                            $this->load->view('dash/recaptchalib.php');
-                            $publickey = "6Ld0jAYTAAAAAA54T7fVuCNNxxZs9OhzdRNm9DGm";
-                            echo recaptcha_get_html($publickey,NULL,true);
-                        ?>
-                    </div>
-
-                    <button type="submit" name="user" class="btn btn-default">Register</button>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
-    <!--/span-->
-
-</div><!--/row-->
-
-    <!-- content ends -->
-    </div><!--/#content.col-md-0-->
-</div><!--/fluid-row-->
+            <!-- content ends -->
+        </div><!--/#content.col-md-0-->
+    </div><!--/fluid-row-->
 
     <hr>
 
