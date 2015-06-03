@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="exampleCategory"> Do You Like To Create A Mobile Verification Method To Your Account Now?</label><br>
-                        <input type="radio" name="twostep" value="1">Yes
+                        <input type="radio" name="twostep" value="1">Yes<br>
                         <input type="radio" name="twostep" value="0">No
                     </div>
 

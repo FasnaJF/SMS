@@ -18,7 +18,7 @@ class SMS_Controller extends MY_Controller{
 
         $this->load->library('SmsReceiver');
         $this->load->library('SmsSender');
-        $this->load->model('user_m');
+        $this->load->model('user');
 
         $this->address = $this->smsreceiver->getAddress();
         $this->content = $this->smsreceiver->getMessage();

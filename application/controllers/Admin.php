@@ -125,7 +125,13 @@ class Admin extends CI_Controller {
                 $this->session->set_userdata('user_id',$user_id['UserID'] );
                 $this->session->set_userdata('userName', $user);
 
-                $this->twoStep();
+                $added = $this->user->twoStepAdded($user_id['UserID']);
+                if(!$added){
+                    $this->twoStep();
+                }
+                else{
+                    $this->verifyMobile();
+                }
 
 
 
@@ -145,7 +151,26 @@ class Admin extends CI_Controller {
 
 
     public function mobileVerify(){
-        echo "Verifying in process";
+        $user_id = $this->session->userdata('user_id');
+
+        $pin = isset($_POST['pin']) ? $_POST['pin'] : '';
+
+        $this->load->model('user');
+        $this->user->verifyMobileNo($user_id,$pin);
+
+        $verified = $this->user->verified($user_id);
+        if($verified){
+            $this->introForm();
+        }
+        else{
+
+            $this->verifyMobile();
+
+/*            $this->phpAlert("You exceeded the tries..");
+            $this->logout();*/
+
+        }
+
     }
 
 
@@ -158,13 +183,41 @@ class Admin extends CI_Controller {
             $this->introForm();
         }
         else{
-            $this->verifyMobile();
-        }
+            $this->addMobileRequest();
 
+        }
 
     }
 
+
+    public function addMobile(){
+
+        $phone = isset($_POST['mobile']) ? $_POST['mobile'] : '';
+
+        $user_id = $this->session->userdata('user_id');
+
+        $data = array(
+            'Address' => $phone
+        );
+
+        $this->load->model('user');
+        $this->user->addMobileNo($user_id,$data);
+
+        $this->verifyMobile();
+    }
+
+
+
+    public function addMobileRequest(){
+        $this->load->view('dash/dash_header');
+        $this->load->view('dash/addmobile.php');
+        $this->load->view('dash/dash_footer');
+    }
+
     public function verifyMobile(){
+
+
+
         $this->load->view('dash/dash_header');
         $this->load->view('dash/verifymobile.php');
         $this->load->view('dash/dash_footer');

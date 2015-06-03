@@ -111,6 +111,88 @@ class User extends CI_Model
     }
 
 
+
+    public function addPin($data){
+
+
+        $address = substr($data['address'],4);
+        $data['Address'] = $address;
+
+        $query = $this->db->get_where('authuser',array('Address'=>$address));
+
+        $exist = $query->num_rows();
+
+        if(!$exist){
+            $this->phpAlert("The number You tried to get the code is different from you entered");
+        }
+        else {
+            $data['Flag'] = 0;
+            $where = "Address = " . $address;
+            $sql = $this->db->update_string('authuser', $data, $where);
+            $this->db->query($sql);
+        }
+
+    }
+
+    public function addMobileNo($UserID,$data){
+
+        $data['UserID'] = $UserID;
+
+
+        $sql = $this->db->insert_string('authuser', $data);
+        $this->db->query($sql);
+
+
+    }
+
+    public function twoStepAdded($UserID){
+
+        $query = $this->db->get_where('authuser',array('UserID'=>$UserID));
+
+        $exist = $query->num_rows();
+
+        if($exist) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public function verifyMobileNo($UserID, $pin){
+
+        $query = $this->db->get_where('authuser',array('UserID'=>$UserID,'Pin'=>$pin));
+
+        $exist = $query->num_rows();
+
+        if($exist){
+
+            $where = "UserID = " . $UserID;
+            $data['Flag'] = 1;
+            $sql = $this->db->update_string('authuser', $data, $where);
+            $this->db->query($sql);
+            $this->phpAlert("Your Mobile number verified successfully");
+
+        }
+        else{
+            $this->phpAlert("You entered a wrong pin. Please try again");
+
+        }
+    }
+
+    public function verified($UserID){
+        $query = $this->db->get_where('authuser',array('UserID'=>$UserID,'Flag'=>1));
+        $exist = $query->num_rows();
+        if($exist){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
     public function updateIntro($UserID, $data)
     {
 
@@ -124,7 +206,7 @@ class User extends CI_Model
 
     public function updateIntroIndustry($UserID, $data)
     {
-        echo $UserID;
+        //echo $UserID;
         $where = "IndustryID = " . $UserID;
         $sql = $this->db->update_string('industries', $data, $where);
 

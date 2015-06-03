@@ -28,7 +28,7 @@ class Authuser extends MY_Model
         if (empty($user)) {
             return 0;
         }
-        return $user->id;
+        return $user->AuthID;
     }
 
     public function getIdByPin($pin)
@@ -37,18 +37,18 @@ class Authuser extends MY_Model
         if (empty($user)) {
             return 0;
         }
-        return $user->id;
+        return $user->AuthID;
     }
 
-    public function getAll()
-    {
-        return $this->get_many_by(array('flag' => STATUS_ACTIVE));
-    }
-
-    public function getPending()
-    {
-        return $this->get_many_by(array('flag' => STATUS_PENDING));
-    }
+//    public function getAll()
+//    {
+//        return $this->get_many_by(array('flag' => STATUS_ACTIVE));
+//    }
+//
+//    public function getPending()
+//    {
+//        return $this->get_many_by(array('flag' => STATUS_PENDING));
+//    }
 
 
 }
