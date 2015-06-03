@@ -1,0 +1,17 @@
+Send Message To Application
+Application Data:
+URL: https://localhost/MicroPayment/App/receive
+
+Application ID: APP_000001
+
+Password: password
+
+Message Data:
+Customer Number: Any number in format( 9477......)
+
+To Number: 77100
+
+Encoding: text
+
+Message: pwd pin
+
