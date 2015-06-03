@@ -22,12 +22,14 @@ class User extends CI_Model
 
         $email = $data['Email'];
 
-        $query = $this->db->get_where('tempuser',array('Email'=>$email));
+        $querytemp = $this->db->get_where('tempuser',array('Email'=>$email));
+        $existtemp = $querytemp->num_rows();
 
-        $exist = $query->num_rows();
+        $queryuser = $this->db->get_where('user',array('Email'=> $email));
+        $existuser = $queryuser->num_rows();
 
-        if($exist){
-            $this->phpAlert("The Email already exists");
+        if($existtemp || $existuser){
+            $this->phpAlert("An account with this Email already exists");
             $userId=0;
         }
         else {

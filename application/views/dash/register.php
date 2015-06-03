@@ -65,11 +65,13 @@
                     </div>
                     <div class="form-group">
                         <label for="examplePass">Password</label>
-                        <input name="password" type="password" class="form-control" id="examplePass" placeholder="Enter Password">
+                        <input name="password" type="password" class="form-control" id="examplePass" placeholder="Enter Password"  >
+
                     </div>
                      <div class="form-group">
                         <label for="exampleRePass">Re-type Password</label>
-                        <input name="conf_password" type="password" class="form-control" id="exampleRePass" placeholder="Re type Password">
+                        <input name="conf_password" type="password" class="form-control" id="exampleRePass" placeholder="Re type Password" onkeyup="checkPass(); return false;">
+                         <span id="confirmMessage" class="confirmMessage"></span>
                     </div>
 
                     <div class="form-group">

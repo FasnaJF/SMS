@@ -214,7 +214,9 @@ class Admin extends CI_Controller {
         $from = array('email' => 'micropaysystem@gmail.com', 'name' => 'Micro Payment');
         $to = array($email);
         $subject = 'Verification Email';
-        $message = "Hi! \r\n Confirmation link: \r\n Click on this link to activate your Account \r\n https://localhost/MicroPayment/Verify/" . $verifyCode . "";
+        $message = "Hi! \r\n Welcome to Secure Micropayment Scheme. \r\n
+        Confirmation link: \r\n
+        Click this link to activate your Account \r\n https://localhost/MicroPayment/Verify/" . $verifyCode . "\r\n Thank You";
 
         /*Load CodeIgniter Email library*/
         $this->load->library('Email');
