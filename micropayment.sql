@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2015 at 11:40 AM
+-- Generation Time: Jun 04, 2015 at 05:05 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `micropayment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authuser`
+--
+
+CREATE TABLE IF NOT EXISTS `authuser` (
+`AuthID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `Address` varchar(255) NOT NULL,
+  `Pin` varchar(7) NOT NULL,
+  `Flag` int(1) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `authuser`
+--
+
+INSERT INTO `authuser` (`AuthID`, `UserID`, `Address`, `Pin`, `Flag`) VALUES
+(7, 11, '94771122336', 'lmw9q', 1),
+(8, 12, '94774267956', 'r3l5x', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 `MenuID` int(11) NOT NULL,
   `MenuName` varchar(20) NOT NULL,
   `UserID` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=207 ;
 
 --
 -- Dumping data for table `menu`
@@ -181,7 +203,51 @@ INSERT INTO `menu` (`MenuID`, `MenuName`, `UserID`) VALUES
 (159, 'Personal_Info', 43),
 (160, 'Account', 43),
 (161, 'Personal_Info', 44),
-(162, 'Account', 44);
+(162, 'Account', 44),
+(163, 'Personal_Info', 1),
+(164, 'Account', 1),
+(165, 'Personal_Info', 2),
+(166, 'Account', 2),
+(167, 'Personal_Info', 3),
+(168, 'Account', 3),
+(169, 'Personal_Info', 4),
+(170, 'Account', 4),
+(171, 'Personal_Info', 5),
+(172, 'Account', 5),
+(173, 'Personal_Info', 6),
+(174, 'Account', 6),
+(175, 'Personal_Info', 7),
+(176, 'Account', 7),
+(177, 'Personal_Info', 8),
+(178, 'Account', 8),
+(179, 'Personal_Info', 9),
+(180, 'Account', 9),
+(181, 'Personal_Info', 10),
+(182, 'Account', 10),
+(183, 'Personal_Info', 11),
+(184, 'Account', 11),
+(185, 'Personal_Info', 1),
+(186, 'Account', 1),
+(187, 'Personal_Info', 2),
+(188, 'Account', 2),
+(189, 'Personal_Info', 3),
+(190, 'Account', 3),
+(191, 'Personal_Info', 5),
+(192, 'Account', 5),
+(193, 'Personal_Info', 6),
+(194, 'Account', 6),
+(195, 'Personal_Info', 7),
+(196, 'Account', 7),
+(197, 'Personal_Info', 8),
+(198, 'Account', 8),
+(199, 'Personal_Info', 9),
+(200, 'Account', 9),
+(201, 'Personal_Info', 10),
+(202, 'Account', 10),
+(203, 'Personal_Info', 11),
+(204, 'Account', 11),
+(205, 'Personal_Info', 12),
+(206, 'Account', 12);
 
 -- --------------------------------------------------------
 
@@ -218,14 +284,15 @@ CREATE TABLE IF NOT EXISTS `reader` (
   `Province` varchar(20) NOT NULL,
   `PostalCode` int(6) NOT NULL,
   `Nationality` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `reader`
 --
 
 INSERT INTO `reader` (`ReaderID`, `UserID`, `PersonName`, `Email`, `DateOfBirth`, `Password`, `Phone`, `Verification`, `AddressOne`, `AddressTwo`, `City`, `Province`, `PostalCode`, `Nationality`) VALUES
-(42, 44, '', 'jffasna@gmail.com', '0000-00-00', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', '', 0, '', '', '', '', 0, '');
+(8, 11, '', 'jffasna@gmail.com', '0000-00-00', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', '', 0, '', '', '', '', 0, ''),
+(9, 12, '', 'fasnajf@gmail.com', '0000-00-00', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', '', 0, '', '', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -308,18 +375,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Email` varchar(50) NOT NULL,
   `Password` varchar(40) NOT NULL,
   `Flag` int(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`UserID`, `Email`, `Password`, `Flag`) VALUES
-(44, 'jffasna@gmail.com', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', 1);
+(11, 'jffasna@gmail.com', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', 1),
+(12, 'fasnajf@gmail.com', 'e0c9035898dd52fc65c41454cec9c4d2611bfb37', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `authuser`
+--
+ALTER TABLE `authuser`
+ ADD PRIMARY KEY (`AuthID`), ADD UNIQUE KEY `Address` (`Address`), ADD UNIQUE KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `industries`
@@ -385,12 +459,17 @@ ALTER TABLE `transaction`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
- ADD PRIMARY KEY (`UserID`);
+ ADD PRIMARY KEY (`UserID`), ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `authuser`
+--
+ALTER TABLE `authuser`
+MODIFY `AuthID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `industries`
 --
@@ -405,7 +484,7 @@ MODIFY `AccountID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-MODIFY `MenuID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=163;
+MODIFY `MenuID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=207;
 --
 -- AUTO_INCREMENT for table `pays`
 --
@@ -415,7 +494,7 @@ MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `reader`
 --
 ALTER TABLE `reader`
-MODIFY `ReaderID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `ReaderID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `readeraccount`
 --
@@ -445,7 +524,7 @@ MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
