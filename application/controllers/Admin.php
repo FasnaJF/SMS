@@ -334,7 +334,7 @@ class Admin extends CI_Controller {
 
 
 
-    public function UpdateUser(){
+    public function updateUser(){
 
 
         $personID = isset($_POST['ReaderID'])? $_POST['ReaderID']:'' ;
@@ -368,8 +368,10 @@ class Admin extends CI_Controller {
         if(isset($personID)){
 
             $this->user->updateIntro($personID, $data);
-            $ref = $this->input->server('HTTP_REFERER', TRUE);
-            redirect($ref, 'location');
+            /*$ref = $this->input->server('HTTP_REFERER', TRUE);
+            redirect($ref, 'location');*/
+            $this->load->helper('url');
+            redirect('https://localhost/MicroPayment/Admin/introForm','refresh');
         }
 
 
@@ -402,8 +404,10 @@ class Admin extends CI_Controller {
         if(isset($personID)){
 
             $this->user->updateIntroIndustry($personID, $data);
-            $ref = $this->input->server('HTTP_REFERER', TRUE);
-            redirect($ref, 'location');
+           /* $ref = $this->input->server('HTTP_REFERER', TRUE);
+            redirect($ref, 'location');*/
+            $this->load->helper('url');
+            redirect('https://localhost/MicroPayment/Admin/introForm','refresh');
         }
 
 
