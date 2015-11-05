@@ -14,4 +14,3 @@ To Number: 77100
 Encoding: text
 
 Message: pwd pin
-

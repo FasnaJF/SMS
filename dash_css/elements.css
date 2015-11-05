@@ -1,7 +1,7 @@
 /*----------------------------------------------
 css settings for HTML div exactCenter 
 ------------------------------------------------*/
-@import url(http://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 
 #abc{
 width: 100%;
@@ -90,13 +90,65 @@ border-radius: 5px;
 
 
 
-popup, popupedit{
-width:10%;
-height:45px;
-border-radius:3px;
-background-color: peru;
-color:white;
-font-family: 'Raleway', sans-serif;
-font-size:18px;
-cursor:pointer;
+/*popup, popupedit{*/
+/*width:10%;*/
+/*height:45px;*/
+/*border-radius:3px;*/
+/*background-color: peru;*/
+/*color:white;*/
+/*font-family: 'Raleway', sans-serif;*/
+/*font-size:18px;*/
+/*cursor:pointer;*/
+/*}*/
+
+/*body div.ch-container div.row div#content.col-lg-10.col-sm-10 div.row div.box.col-md-12 div.box-inner div.box-content.news div.box-inner.col-md-6 button.paper{*/
+    /*position:absolute;*/
+    /*left:120px;*/
+    /*top:80px;*/
+    /*width: 250px;*/
+    /*height: 100px;*/
+    /*background-color: #0e83cd;*/
+
+/*}*/
+
+/* Button 3 */
+.btn-3 {
+    position:absolute;
+    left:120px;
+    top:80px;
+    width: 250px;
+    height: 100px;
+    background: #0e83cd;
+    color: #fff;
 }
+
+.btn-3:hover {
+    background: #4590f4;
+}
+
+.btn-3:active {
+    background: #4590f4;
+    /*top: 2px;*/
+}
+
+.btn-3:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    /*width: 60px;*/
+}
+
+/* Button 3b */
+.btn-3b {
+    /*padding: 25px 60px 25px 120px;*/
+    border-radius: 10px;
+}
+
+.btn-3b:before {
+    border-right: 2px solid rgba(255,255,255,0.5);
+}
+
+

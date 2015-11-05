@@ -1,8 +1,7 @@
 <body>
-<!-- topbar starts -->
-<?php include_once('dash_topbar.php');
-?>
-<!-- topbar ends -->
+
+<?php include_once("dash_topbar.php"); ?>
+
 <div class="ch-container">
     <div class="row">
 
@@ -17,7 +16,7 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="<?php echo base_url('Admin/authenticate');?>"><i class="glyphicon glyphicon-home"></i><span> Personal Info</span></a>
                         </li>
-                        <li><a class="ajax-link" href="<?php echo base_url('Admin/account/?cat=Account');?>"><i class="glyphicon glyphicon-eye-open"></i><span> Account</span></a>
+                        <li><a class="ajax-link" href="<?php echo base_url('Admin/accountForm');?>"><i class="glyphicon glyphicon-eye-open"></i><span> Account</span></a>
                         </li>
                     </ul>
                 </div>
@@ -38,14 +37,21 @@
         <div id="content" class="col-lg-10 col-sm-10">
             <!-- content starts -->
             <div>
-
+                <!--    <ul class="breadcrumb">-->
+                <!--        <li>-->
+                <!--            <a href="#">Home</a>-->
+                <!--        </li>-->
+                <!--        <li>-->
+                <!--            <a href="#">Forms</a>-->
+                <!--        </li>-->
+                <!--    </ul>-->
             </div>
 
             <div class="row">
                 <div class="box col-md-12">
                     <div class="box-inner">
                         <div class="box-header well" data-original-title="">
-                            <h2><i class="glyphicon glyphicon-edit"></i> New User Information</h2>
+                            <h2><i class="glyphicon glyphicon-edit"></i> Newspaper</h2>
 
                             <div class="box-icon">
                                 <a href="#" class="btn btn-setting btn-round btn-default"><i
@@ -56,37 +62,31 @@
                                         class="glyphicon glyphicon-remove"></i></a>
                             </div>
                         </div>
-                        <div class="box-content">
-                            <form role="form" method="post" action="<?php echo(base_url('Admin/addUser')); ?> ">
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="examplePass">Password</label>
-                                    <input name="password" type="password" class="form-control" id="examplePass" placeholder="Enter Password"  >
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleRePass">Re-type Password</label>
-                                    <input name="conf_password" type="password" class="form-control" id="exampleRePass" placeholder="Re type Password" onkeyup="checkPass(); return false;">
-                                    <span id="confirmMessage" class="confirmMessage"></span>
-                                </div>
+                        <div class="box-content news" >
 
 
+                            <div class="box-inner col-md-12" >
 
-                                <div class="form-group">
-                                    <?php
-                                    $this->load->view('dash/recaptchalib.php');
-                                    $publickey = "6Ld0jAYTAAAAAA54T7fVuCNNxxZs9OhzdRNm9DGm";
-                                    echo recaptcha_get_html($publickey,NULL,true);
-                                    ?>
-                                </div>
+                                <h1 style="text-align: center">News Today</h1>
+                                <p style="float: right"><?php echo date("l,d.m.Y");?></p>
 
-                                <button type="submit" name="user" class="btn btn-default">Register</button>
+                            </div>
 
-                            </form>
+                            <div id="3" class="box-inner col-md-12" >
+
+                                <h3>The requested article is not found!!!</h3>
+<!--                                <form method="post" id="form1" name="form1" role="form" action="--><?php //echo(base_url('Admin/readArticle')); ?><!--" >-->
+<!--                                    <button class="btn btn-3 btn-3b">-->
+<!--                                        <input type="hidden" id="three" name="article" class="form-control" value="--><?php //echo($values[2]['ArticleID']);?><!--">-->
+<!--                                        <input type="hidden" name="value" class="form-control" value="--><?php //echo($values[2]['Value']);?><!--">-->
+<!--                                        <h2 style=" color: #ffffff;">Read for Rs.--><?php //echo($values[2]['Value']);?><!--</h2>-->
+<!--                                    </button>-->
+<!--                                </form>-->
+
+
+                            </div>
+
+
 
                         </div>
                     </div>

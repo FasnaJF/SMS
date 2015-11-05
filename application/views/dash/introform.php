@@ -16,7 +16,7 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="<?php echo base_url('Admin/authenticate');?>"><i class="glyphicon glyphicon-home"></i><span> Personal Info</span></a>
                         </li>
-                        <li><a class="ajax-link" href="<?php echo base_url('Admin/account/?cat=Account');?>"><i class="glyphicon glyphicon-eye-open"></i><span> Account</span></a>
+                        <li><a class="ajax-link" href="<?php echo base_url('Admin/accountForm');?>"><i class="glyphicon glyphicon-eye-open"></i><span> Account</span></a>
                         </li>
                     </ul>
                 </div>

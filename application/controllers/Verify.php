@@ -30,7 +30,6 @@ class Verify extends CI_Controller{
             {
                 $data['Email'] = $row['Email'];
                 $data['Password'] = $row['Password'];
-                $data['Flag'] = $row['Flag'];
                 $id=$this->user->addNewUser($data);
 
             }

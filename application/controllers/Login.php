@@ -11,10 +11,7 @@ require 'Admin.php';
 class Login extends CI_Controller{
 
 
-
     public function index(){
-
-//		 $this->admin = new Admin();
 
         if(!$this->session->userdata('user_id')){
 

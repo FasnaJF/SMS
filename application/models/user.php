@@ -60,6 +60,8 @@ class User extends CI_Model
     public function addNewUser($data)
     {
         $email = $data['Email'];
+        $password = $data['Password'];
+        //print_r($data);
 
         $query = $this->db->get_where('user',array('Email'=>$email));
 
@@ -77,23 +79,14 @@ class User extends CI_Model
 
             $userId =  $this->db->insert_id();
 
-            $flag = $data['Flag'];
-
-
-            if($flag==1){
 
                 array_pop($data);
                 $data['UserID'] = $userId;
+                $data['Password'] = $password;
+                print_r($data);
                 $sql = $this->db->insert_string('reader', $data);
                 $this->db->query($sql);
-            }
-            else{
 
-                array_pop($data);
-                $data['UserID'] = $userId;
-                $sql = $this->db->insert_string('industries', $data);
-                $this->db->query($sql);
-            }
 
                 $data = array();
                 $data['MenuName'] = "Personal_Info";
@@ -204,16 +197,32 @@ class User extends CI_Model
 
     }
 
-    public function updateIntroIndustry($UserID, $data)
-    {
-        //echo $UserID;
-        $where = "IndustryID = " . $UserID;
-        $sql = $this->db->update_string('industries', $data, $where);
 
-        $query = $this->db->query($sql);
+    public function updateBalance($UserID, $data)
+    {
+
+        $queryBalance = $this->db->get_where('readeraccount',array('USerID'=> $UserID));
+        $existUser = $queryBalance->num_rows();
+
+        if($existUser){
+            $where = "UserID = " . $UserID;
+            $sql = $this->db->update_string('readeraccount', $data, $where);
+
+            $query = $this->db->query($sql);
+        }
+        else {
+            $data['UserID'] = $UserID;
+            $sql = $this->db->insert_string('readeraccount', $data);
+            $this->db->query($sql);
+
+        }
+
+
 
 
     }
+
+
 
 
     public function getAllUsers()

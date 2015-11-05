@@ -23,46 +23,50 @@ class Post extends CI_Model{
 
 	public function getIntro($UserID){
 
-		$this->db->select('Flag');
-		$this->db->from('user');
-		$this->db->where(array('UserID'=>$UserID));
-		$query = $this->db->get();
-		$flag = $query->row()->Flag;
+//		$this->db->select('Flag');
+//		$this->db->from('user');
+//		$this->db->where(array('UserID'=>$UserID));
+//		$query = $this->db->get();
+//		//$flag = $query->row()->Flag;
 
 
 
-
-		if ($flag==1){
 			$this->db->select('ReaderID,PersonName,AddressOne,AddressTwo,City,Province,PostalCode,Phone,Email,DateOfBirth,Nationality');
 			$this->db->from('reader');
 			$this->db->where(array('UserID'=>$UserID));
 			$query = $this->db->get();
 
 			return $query->result_array();
-		}
-		else if($flag==0){
-
-			$this->db->select('IndustryID,Name,Address,Phone,Email,RegistrationNo');
-			$this->db->from('industries');
-			$this->db->where(array('UserID'=>$UserID));
-			$query = $this->db->get();
-
-			return $query->result_array();
-		}
-		else{
-			return -1;
-		}
 
 
-
-
-		
 	}
 
 
 
+	public function getAccount($UserID){
 
-    public function getMenus($personID){
+			$this->db->select('Balance,Token,RandomKey');
+			$this->db->from('readeraccount');
+			$this->db->where(array('UserID'=>$UserID));
+			$query = $this->db->get();
+
+			return $query->result_array();
+
+
+	}
+
+	public function getArticleValues(){
+
+		$this->db->select('ArticleID,Value');
+		$this->db->from('article');
+		$query = $this->db->get();
+
+		return $query->result_array();
+
+
+	}
+
+	public function getMenus($personID){
 
         /**
         return ]s a 2D array if MenuNames, MenuIDs

@@ -191,6 +191,12 @@ select {
 
 .box-content {
     padding: 10px;
+
+}
+
+.news {
+    height: 1000px;
+
 }
 
 .btn-round {

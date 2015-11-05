@@ -1,3 +1,8 @@
+<?php
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +50,7 @@
     
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- The fav icon -->

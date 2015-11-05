@@ -1,0 +1,36 @@
+/* Button 3 */
+.btn-3 {
+    background: #fcad26;
+    color: #fff;
+}
+
+.btn-3:hover {
+    background: #f29e0d;
+}
+
+.btn-3:active {
+    background: #f58500;
+    top: 2px;
+}
+
+.btn-3:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+}
+
+/* Button 3b */
+.btn-3b {
+    padding: 25px 60px 25px 120px;
+    border-radius: 10px;
+}
+
+.btn-3b:before {
+    border-right: 2px solid rgba(255,255,255,0.5);
+}
+
+

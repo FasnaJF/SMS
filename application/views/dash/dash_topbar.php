@@ -26,10 +26,17 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
+                <li><a href="<?php echo(base_url('Admin/authenticate'));?>">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="<?php echo(base_url('Admin/logout'));?>">Logout</a></li>
             </ul>
+        </div>
+        <div class="btn-group pull-right">
+            <a href="<?php echo(base_url('Admin/readPaper'));?>" class="btn btn-default" style="margin-right: 5px" >
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Newspaper
+
+            </a>
         </div>
         <!-- user dropdown ends -->
 

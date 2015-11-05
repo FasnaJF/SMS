@@ -1,4 +1,7 @@
-                
+<?php
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+?>
                 
  <!-- external javascript -->
 
@@ -35,7 +38,9 @@
 <!-- application script for Charisma demo -->
 <script src=<?php echo base_url("dash_js/charisma.js"); ?>></script>
 
- <script type="application/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src=<?php echo base_url("dash_js/md5.js");?> ></script>
+
+ <script type="application/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
  <script type="application/javascript" src=<?php echo base_url("js/jquery.passstrength.min.js"); ?>></script>
  <script type="application/javascript">
   jQuery(document).ready(function()
@@ -45,6 +50,8 @@
  </script>
 
  <script type="application/javascript" src=<?php echo base_url("js/passwordmatch.js"); ?>></script>
+ <script type="application/javascript" src=<?php echo base_url("js/accountDetails.js"); ?>></script>
+
 
  </body> 
  <!-- body ends here -->

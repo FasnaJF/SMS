@@ -1,4 +1,6 @@
 <?php
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,14 +21,42 @@ class Admin extends CI_Controller {
 
     }
 
+//mam . irfan
+
+//public function hashIt(){
+//
+//    $amount = $_POST['amount'];
+//    $balance  = $_POST['balance'];
+//    $this->load->view('dash/dash_header');
+//    echo $amount;
+//    echo "<br>";
+//    echo $balance;
+//    echo "<br>";
+//    $this->load->library('encrypt');
+//
+//    $randomKey = 'awser432weds';
+//
+//    $string = $balance . $randomKey;
+//
+//    for($x= 1; $x <= $amount; $x++ ){
+//    $string =  $this->encrypt->hash($string);
+//
+//    echo $x + "::";
+//    echo $string;
+//
+//    echo "<br>";
+//    }
+//
+//
+//   // $this->load->view('dash/hashit',$data);
+//    $this->load->view('dash/dash_footer');
+//
+//}
+
+public function getBankDetails(){
 
 
-    public function introForm(){
-
-//		$person_id = isset($this->session->user_data('person_id'))?$this->session->user_data('person_id'):0;
-
-
-        if(  $this->session->userdata('user_id') ){
+    if(  $this->session->userdata('user_id') ){
             $person_id =  $this->session->userdata('user_id');
         }else{
 
@@ -50,16 +80,69 @@ class Admin extends CI_Controller {
         }
 
 
-        if($length==8){
-            $this->load->view('dash/dash_header');
-            $this->load->view('dash/introformind', $data);
-            $this->load->view('dash/dash_footer');
+    foreach($_POST as $key => $value){
+     $data[$key] = $this->input->post($key);
+    // echo $key ."===>".$data[$key];
+}
+    $this->load->view('dash/dash_header');
+    $this->load->view('dash/bankDetail',$data);
+    $this->load->view('dash/dash_footer');
+
+}
+
+public function pay(){
+    foreach($_POST as $key => $value){
+     $data[$key] = $this->input->post($key);
+    //echo $key ."===>".$data[$key];
+}
+    $uid = $this->session->userdata('user_id');
+    $this->load->model('accountDetail');
+    $this->accountDetail->save($data['cardnumber'],$data['balance'],$data['pay'],$data['expdate_month'],$data['expdate_year'],$data['CVN'],$uid);
+
+    $this->accountForm();
+
+}
+
+
+
+
+// mam. irfan
+
+
+    public function introForm(){
+
+//		$person_id = isset($this->session->user_data('person_id'))?$this->session->user_data('person_id'):0;
+
+
+        if(  $this->session->userdata('user_id') ){
+            $person_id =  $this->session->userdata('user_id');
+        }else{
+
+            $person_id = 1;
         }
+
+
+        $this->load->model('post');
+
+
+
+        $data['data'] = $this->post->getIntro($person_id);
+        //$length = count($data,1);
+        //echo $length;
+
+        if($this->session->userdata('userName'))
+        {
+            $data['userName'] =$this->session->userdata('userName');}
         else{
+            $data['userName'] = 'USECASE';
+        }
+
+
+
             $this->load->view('dash/dash_header');
             $this->load->view('dash/introform', $data);
             $this->load->view('dash/dash_footer');
-        }
+
 
 
     }
@@ -256,9 +339,9 @@ class Admin extends CI_Controller {
             $email = isset($_POST['email']) ? $_POST['email'] : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             $conf_password = isset($_POST['conf_password']) ? $_POST['conf_password'] : '';
-            $flag = isset($_POST['category']) ? $_POST['category'] : '';
 
-            if (isset($email) && isset($password) && isset($conf_password) && isset($flag)) {
+
+            if (isset($email) && isset($password) && isset($conf_password) ) {
 
                 if ($password == $conf_password) {
 
@@ -267,7 +350,6 @@ class Admin extends CI_Controller {
                     $data = array(
                         'Email' => $email,
                         'Password' => $password,
-                        'Flag' => $flag,
                         'VerifyCode' => $verifyCode
                     );
 
@@ -333,7 +415,6 @@ class Admin extends CI_Controller {
 
 
 
-
     public function updateUser(){
 
 
@@ -378,46 +459,308 @@ class Admin extends CI_Controller {
 
     }
 
-    public function updateIndustry(){
-
-        echo "update";
-    $personID = isset($_POST['IndustryID'])? $_POST['IndustryID']:'' ;
-    $Name = isset($_POST['Name'])? $_POST['Name']:'' ;
-    $Email = isset($_POST['Email'])? $_POST['Email']:'';
-    $Phone = isset($_POST['Phone'])? $_POST['Phone']: '';
-    $Address = isset($_POST['Address'])? $_POST['Address']:'' ;
-    $RegistrationNo = isset($_POST['RegistrationNo'])? $_POST['RegistrationNo']:'' ;
 
 
-    $data = array(
+    public function bankDetails(){
 
-        'Name' => $Name,
-        'Email' => $Email,
-        'Phone' => $Phone,
-        'Address' => $Address,
-        'RegistrationNo' => $RegistrationNo
-    );
+        $user_id = $this->session->userdata('user_id');
 
-    $this->load->model('user');
-
-
-        if(isset($personID)){
-
-            $this->user->updateIntroIndustry($personID, $data);
-           /* $ref = $this->input->server('HTTP_REFERER', TRUE);
-            redirect($ref, 'location');*/
-            $this->load->helper('url');
-            redirect('https://localhost/MicroPayment/Admin/introForm','refresh');
+        if($this->session->userdata('userName'))
+        {
+            $data['userName'] =$this->session->userdata('userName');}
+        else{
+            $data['userName'] = 'USECASE';
         }
 
 
 
-}
+        $amount = isset($_POST['Amount'])? $_POST['Amount']:'' ;
+        $balance = isset($_POST['Balance'])? $_POST['Balance']:'';
 
+//        echo $amount;
+//        echo $balance;
+
+        if($balance > 0){
+            $this->load->model('post');
+            $data['data'] = $this->post->getAccount($user_id);
+            $randomString = $data['data'][0]['Token'];
+            $initialRandom = $data['data'][0]['RandomKey'];
+
+
+        }
+        else{
+            $randomString = $this->generateRandomString();
+            $initialRandom = $randomString;
+
+        }
+
+        $this->load->model('transaction');
+        $token = $this->transaction->hashString($randomString,$amount);
+
+
+        if((is_numeric($amount)) && ($amount > 0)){
+
+            $data['Amount'] = $amount;
+            $data['Balance'] = $balance;
+            $data['Token'] = $token;
+            $data['RandomKey'] = $initialRandom;
+
+            $this->load->view('dash/dash_header');
+            $this->load->view('dash/bankDetail', $data);
+            $this->load->view('dash/dash_footer');
+        }
+        else{
+            $this->phpAlert("Please Enter a Positive Numeric Value!");
+            $this->accountForm();
+        }
+
+
+    }
+
+    public function updateAccount(){
+
+        if(  $this->session->userdata('user_id') ){
+            $personID =  $this->session->userdata('user_id');
+        }else{
+
+            $personID = 1;
+        }
+
+
+        $Amount = isset($_POST['Amount'])? $_POST['Amount']:'' ;
+        $Balance = isset($_POST['Balance'])? $_POST['Balance']:'' ;
+        $Token = isset($_POST['Token'])? $_POST['Token']:'' ;
+        $RandomKey = isset($_POST['Random'])? $_POST['Random']:'' ;
+        $CreditCardType = isset($_POST['CreditCardType'])? $_POST['CreditCardType']:'' ;
+        $CardNumber = isset($_POST['CardNumber'])? $_POST['CardNumber']:'' ;
+        $ExpMonth = isset($_POST['ExpMonth'])? $_POST['ExpMonth']:'' ;
+        $ExpYear = isset($_POST['ExpYear'])? $_POST['ExpYear']: '';
+        $CVN = isset($_POST['CVN'])? $_POST['CVN']: '';
+
+        //echo $Token;
+
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        if ((($ExpYear - $currentYear) <= 0) && (($ExpMonth - $currentMonth) <= 0)){
+                $this->phpAlert("You entered a Expired Card");
+               $this->accountForm();
+        }
+        else{
+            $data = array(
+
+                'Balance' => (int)$Balance + (int)$Amount,
+                'CreditCardType' => $CreditCardType,
+                'CardNumber' => $CardNumber,
+                'ExpMonth' => (int)$ExpMonth,
+                'ExpYear' => (int)$ExpYear,
+                'CVN' => $CVN,
+                'Token' => $Token,
+                'RandomKey' =>$RandomKey
+            );
+
+            $this->load->model('user');
+
+            if(isset($personID)){
+                $this->user->updateBalance($personID, $data);
+                $this->accountForm();
+            }
+        }
+
+
+
+
+
+
+    }
+
+    public function accountForm(){
+
+//		$person_id = isset($this->session->user_data('person_id'))?$this->session->user_data('person_id'):0;
+
+
+        if(  $this->session->userdata('user_id') ){
+            $person_id =  $this->session->userdata('user_id');
+        }else{
+
+            $person_id = 1;
+        }
+
+
+        $this->load->model('post');
+
+
+
+        $data['data'] = $this->post->getAccount($person_id);
+
+
+        if($this->session->userdata('userName'))
+        {
+            $data['userName'] =$this->session->userdata('userName');}
+        else{
+            $data['userName'] = 'USECASE';
+        }
+
+
+            $this->load->view('dash/dash_header');
+            $this->load->view('dash/accountform', $data);
+            $this->load->view('dash/dash_footer');
+
+
+
+    }
+
+    public function openTest(){
+
+
+
+        $this->load->view('dash/dash_header');
+        $this->load->view('dash/test');
+        $this->load->view('dash/dash_footer');
+
+
+
+    }
 
     public function phpAlert($msg) {
         echo '<script type="text/javascript">alert("' . $msg . '")</script>';
     }
+
+
+
+    public function readPaper(){
+
+        if(  $this->session->userdata('user_id') ){
+            $person_id =  $this->session->userdata('user_id');
+        }else{
+
+            $person_id = 1;
+        }
+        $this->load->model('post');
+
+        $data['values'] = $this->post->getArticleValues();
+        $data['data'] = $this->post->getAccount($person_id);
+
+
+        if($this->session->userdata('userName'))
+        {
+            $data['userName'] =$this->session->userdata('userName');}
+        else{
+            $data['userName'] = 'USECASE';
+        }
+
+
+        $this->load->view('dash/dash_header');
+        $this->load->view('dash/newspaper', $data);
+        $this->load->view('dash/dash_footer');
+
+    }
+
+    public function readArticle(){
+
+
+        $id = isset($_POST['article'])? $_POST['article']:'' ;
+        $value = isset($_POST['value'])? $_POST['value']:'' ;
+
+        if(  $this->session->userdata('user_id') ){
+            $person_id =  $this->session->userdata('user_id');
+        }else{
+
+            $person_id = 1;
+        }
+
+
+
+        $data = array($id,$value,$person_id);
+
+        if($this->session->userdata('userName'))
+        {
+            $data['userName'] =$this->session->userdata('userName');}
+        else{
+            $data['userName'] = 'USECASE';
+        }
+
+        $this->load->model('transaction');
+        $encrypted = $this->transaction->transferAccountDetails($data);
+
+        if(!$encrypted){
+
+            $data['values'] = $this->post->getArticleValues();
+            $this->load->view('dash/dash_header');
+            $this->load->view('dash/newspaper', $data);
+            $this->load->view('dash/dash_footer');
+        }
+        else{
+
+            $encrypted[2] = $value;
+
+            $readerData = $this->transaction->processReadRequest($encrypted);
+
+            $articleValue = $readerData[0];
+            $randomKey = $readerData[1];
+            $balance = $readerData[2];
+
+            $newBalance = ($balance-$articleValue);
+            $this->load->model('transaction');
+            $updatedToken = $this->transaction->hashString($randomKey,$newBalance);
+
+            $updatedData = array($updatedToken,$newBalance,$articleValue,$person_id);
+            $this->load->model('transaction');
+            $transactionSuccess = $this->transaction->updateData($updatedData);
+
+            if(!$transactionSuccess){
+                $data['values'] = $this->post->getArticleValues();
+                $this->load->view('dash/dash_header');
+                $this->load->view('dash/newspaper', $data);
+                $this->load->view('dash/dash_footer');
+            }
+            else{
+                switch($id){
+                    case "1":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article1', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    case "2":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article2', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    case "3":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article3', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    case "4":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article4', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    case "5":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article5', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    case "6":
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/article6', $data);
+                        $this->load->view('dash/dash_footer');
+                        break;
+                    default:
+                        $this->load->view('dash/dash_header');
+                        $this->load->view('dash/notexist', $data);
+                        $this->load->view('dash/dash_footer');
+
+                }
+
+
+            }
+
+        }
+
+
+    }
+
 
 
 }
